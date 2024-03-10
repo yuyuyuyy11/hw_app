@@ -1,3 +1,4 @@
 .vscode
 python/build/
 python/dist/
+python/*.spec

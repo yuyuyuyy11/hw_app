@@ -6,6 +6,7 @@ import time
 n = 200
 robot_num = 10
 berth_num = 10
+boat_num = 5
 N = 210
 class Robot:
     def __init__(self, startX=0, startY=0, goods=0, status=0, mbx=0, mby=0):
@@ -45,10 +46,10 @@ gds = [[0 for _ in range(N)] for _ in range(N)]
 def Init():
     for i in range(0, n):  # 获取200x200地图
         line = input()
-        ch.append([c for c in line.split(sep=" ")])
+        ch.append([c for c in line.split()])
     for i in range(berth_num):  # 获取泊位数据
         line = input()
-        berth_list = [int(c) for c in line.split(sep=" ")]
+        berth_list = [int(c) for c in line.split()]
         id = berth_list[0]
         berth[id].x = berth_list[1]
         berth[id].y = berth_list[2]
@@ -60,25 +61,29 @@ def Init():
     sys.stdout.flush()
     
 def Input():
-    id, money = map(int, input().split(" "))  # 帧序号，当前金币数
+    id, money = map(int, input().split())  # 帧序号，当前金币数
     num = int(input())  # 新增货物的数量
     for i in range(num):  # num行新增货物的数量
-        x, y, val = map(int, input().split(' '))  # 货物坐标，金额
+        x, y, val = map(int, input().split())  # 货物坐标，金额
         gds[x][y] = val
-    for i in range(robot_num):
+    for i in range(robot_num):  # 10行机器人的信息
         robot[i].goods, robot[i].x, robot[i].y, robot[i].status = map(int, input().split())
-    for i in range(5):
+    for i in range(5):  # 5行船的信息
         boat[i].status, boat[i].pos = map(int, input().split())
-    okk = input()
+    okk = input()  # 'OK'
     return id
 
 if __name__ == "__main__":
     Init()
     for frame in range(1, 15001):
         id = Input()
-        start = time.time()
+
+        """
+        这部分进行每一帧的信息处理然后给出机器人和船的运动决策
+        """
         for i in range(robot_num):
-            print("move", i, random.randint(0, 3))
+            print("move", i, random.randint(0, 4))
             sys.stdout.flush()
+        
         print("OK")
         sys.stdout.flush()
